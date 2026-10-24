@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { ElementTile } from "./ElementTile";
-import { element, nav, site } from "@/content/site";
+import { brandStory, element, nav, site } from "@/content/site";
 
 export function Footer() {
   return (
@@ -21,6 +21,7 @@ export function Footer() {
       <span>
         © {new Date().getFullYear()} {site.name}
       </span>
+      <p className="foot__story">{brandStory.long}</p>
     </footer>
   );
 }

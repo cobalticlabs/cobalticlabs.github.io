@@ -2,7 +2,7 @@ import Link from "next/link";
 import { ArrowIcon } from "./Icons";
 import { Rich } from "./Rich";
 import { hero } from "@/content/home";
-import { element, site } from "@/content/site";
+import { brandStory, element, site } from "@/content/site";
 
 export function Hero() {
   return (
@@ -55,7 +55,7 @@ export function Hero() {
           style={{ "--d": 6 } as React.CSSProperties}
         >
           <span>
-            {element.symbol} · {element.number} · {element.mass}
+            {element.symbol} · {element.number} · {brandStory.short}
           </span>
           <span>{site.coordinates}</span>
           <span className="hero__hint">{hero.hint}</span>

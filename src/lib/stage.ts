@@ -23,6 +23,7 @@ export interface Pose {
 
 export const WIDE_MIN_PX = 760;
 export const FOLLOW_MIN_PX = 1100;
+const BLOB_REACH = 1.35;
 
 export function clamp(value: number, min = 0, max = 1): number {
   return Math.min(max, Math.max(min, value));
@@ -53,9 +54,9 @@ export function heroPose({ width, height, hero }: StageInput): Pose {
       shape: "blob",
     };
   }
-  const radius = Math.min(heroHeight * 0.33, width * 0.2, 300);
+  const radius = Math.min(heroHeight * 0.33, width * 0.18, 300);
   return {
-    x: Math.min(width * 0.72, width - radius - 24),
+    x: Math.min(width * 0.72, width - radius * BLOB_REACH - 16),
     y: hero.top + heroHeight * 0.5,
     radius,
     opacity: 1,
@@ -68,7 +69,7 @@ export function stagePose(input: StageInput): Pose {
   const { width, height, services } = input;
   if (width < FOLLOW_MIN_PX || !services) return start;
 
-  const enter = smoothstep(height * 0.95, height * 0.35, services.top);
+  const enter = smoothstep(height * 0.85, height * 0.35, services.top);
   if (enter === 0) return start;
 
   const radius = Math.min(height * 0.22, width * 0.13, 190);
