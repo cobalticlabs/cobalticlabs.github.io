@@ -8,7 +8,7 @@
   gap: 18px;
   background: var(--bg);
   pointer-events: none;
-  animation: intro-out 0.6s var(--ease-out) 1.15s forwards;
+  animation: intro-out 0.45s var(--ease-out) 0.6s forwards;
 }
 
 html.intro-seen .intro {
@@ -24,7 +24,7 @@ html.intro-seen .intro {
   border: 2px solid var(--cobalt);
   border-radius: 16px;
   background: linear-gradient(150deg, var(--surface-2), var(--bg));
-  animation: intro-tile 0.7s var(--ease-out) both;
+  animation: intro-tile 0.45s var(--ease-out) both;
 }
 
 .intro__tile b {
@@ -50,7 +50,7 @@ html.intro-seen .intro {
   font-size: 14px;
   color: var(--cobalt-light);
   counter-reset: n var(--n);
-  animation: intro-count 0.9s ease-out forwards;
+  animation: intro-count 0.55s ease-out forwards;
 }
 
 .intro__n::after {
@@ -62,7 +62,7 @@ html.intro-seen .intro {
   font-stretch: 112%;
   font-weight: 700;
   font-size: 20px;
-  animation: intro-name 0.5s var(--ease-out) 0.45s both;
+  animation: intro-name 0.35s var(--ease-out) 0.2s both;
 }
 
 @keyframes intro-tile {
@@ -92,7 +92,7 @@ html.intro-seen .intro {
   }
 }
 
-@media (prefers-reduced-motion: reduce) {
+@media (prefers-reduced-motion: reduce), (max-width: 759px) {
   .intro {
     display: none;
   }

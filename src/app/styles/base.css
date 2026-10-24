@@ -195,8 +195,10 @@ section[id] {
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  html:not(.intro-seen) {
-    --intro-delay: 1.2s;
+  @media (min-width: 760px) {
+    html:not(.intro-seen) {
+      --intro-delay: 0.7s;
+    }
   }
 
   .rise {
