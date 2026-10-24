@@ -1,0 +1,51 @@
+.posts {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.post-card {
+  display: grid;
+  align-content: start;
+  gap: 12px;
+  padding: 28px;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: var(--surface);
+  transition:
+    border-color 0.3s ease,
+    transform 0.4s var(--ease-out);
+}
+
+.post-card:hover {
+  border-color: var(--cobalt);
+  transform: translateY(-4px);
+}
+
+.post-card h3 {
+  font-family: var(--font-display);
+  font-stretch: 112%;
+  font-weight: 700;
+  font-size: var(--step-1);
+  line-height: 1.2;
+  text-wrap: balance;
+}
+
+.post-card p:not(.mono) {
+  color: var(--muted);
+}
+
+.post-card__more {
+  font-weight: 600;
+  color: var(--cobalt-light);
+}
+
+.posts--page {
+  margin-top: 48px;
+}
+
+@media (max-width: 760px) {
+  .posts {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

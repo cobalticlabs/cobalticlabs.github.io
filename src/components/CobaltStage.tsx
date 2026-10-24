@@ -2,13 +2,12 @@
 
 import { useEffect, useRef } from "react";
 
-export function CobaltCanvas() {
+export function CobaltStage() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
     const canvas = canvasRef.current;
-    const host = canvas?.parentElement;
-    if (!canvas || !host) return;
+    if (!canvas) return;
     const reduceMotion = window.matchMedia(
       "(prefers-reduced-motion: reduce)",
     ).matches;
@@ -16,7 +15,7 @@ export function CobaltCanvas() {
     let cancelled = false;
     import("@/lib/cobalt-scene").then(({ startCobaltScene }) => {
       if (cancelled) return;
-      stop = startCobaltScene(canvas, host, reduceMotion) ?? undefined;
+      stop = startCobaltScene(canvas, reduceMotion) ?? undefined;
       if (stop) canvas.classList.add("is-ready");
     });
     return () => {
@@ -25,5 +24,5 @@ export function CobaltCanvas() {
     };
   }, []);
 
-  return <canvas ref={canvasRef} className="hero__canvas" aria-hidden="true" />;
+  return <canvas ref={canvasRef} className="stage" aria-hidden="true" />;
 }

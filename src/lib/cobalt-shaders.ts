@@ -55,20 +55,32 @@ export const vertexShader = /* glsl */ `
 uniform float uTime;
 uniform float uAmp;
 uniform vec2 uMouse;
+uniform vec3 uBox;
+uniform float uBoxMix;
+uniform float uSpikes;
 varying vec3 vPos;
+varying vec3 vBoxN;
 varying float vNoise;
 ${simplexNoise}
 void main() {
   vec3 n = normalize(position);
   float t = uTime;
+  vec3 q = abs(n) / uBox;
+  float s = pow(pow(q.x, 8.0) + pow(q.y, 8.0) + pow(q.z, 8.0), -0.125);
+  vec3 base = mix(position, n * s * length(position), uBoxMix);
+  vec3 boxP = n * s;
+  vec3 grad = sign(boxP) * pow(abs(boxP) / uBox, vec3(7.0)) / uBox;
+  vBoxN = normalize(normalMatrix * (grad + vec3(1e-6)));
   float n1 = snoise(n * 1.25 + vec3(t * 0.16, t * 0.11, 0.0));
   float n2 = snoise(n * 3.0 - vec3(0.0, t * 0.27, t * 0.19));
-  float d = n1 * 0.2 * uAmp + n2 * 0.035 * uAmp;
+  float n3 = snoise(n * 6.0 + vec3(t * 0.35));
+  float wobble = (n1 * 0.2 + n2 * 0.035) * uAmp * (1.0 - uBoxMix);
+  float spikes = uSpikes * 0.24 * pow(max(n3, 0.0), 1.4);
   vec3 viewN = normalize(normalMatrix * n);
   vec3 towards = normalize(vec3(uMouse * 1.4, 0.9));
-  d += 0.16 * pow(max(dot(viewN, towards), 0.0), 7.0);
-  vNoise = n1;
-  vec4 mv = modelViewMatrix * vec4(position + n * d, 1.0);
+  float pull = 0.16 * pow(max(dot(viewN, towards), 0.0), 7.0) * (1.0 - uBoxMix);
+  vNoise = mix(n1, boxP.y / uBox.y * 0.7, uBoxMix);
+  vec4 mv = modelViewMatrix * vec4(base + n * (wobble + spikes + pull), 1.0);
   vPos = mv.xyz;
   gl_Position = projectionMatrix * mv;
 }
@@ -78,12 +90,15 @@ export const fragmentShader = /* glsl */ `
 uniform vec3 uDeep;
 uniform vec3 uCobalt;
 uniform vec3 uGlow;
+uniform float uBoxMix;
 varying vec3 vPos;
+varying vec3 vBoxN;
 varying float vNoise;
 void main() {
-  vec3 n = normalize(cross(dFdx(vPos), dFdy(vPos)));
   vec3 v = normalize(-vPos);
-  if (dot(n, v) < 0.0) n = -n;
+  vec3 dn = normalize(cross(dFdx(vPos), dFdy(vPos)));
+  if (dot(dn, v) < 0.0) dn = -dn;
+  vec3 n = normalize(mix(dn, normalize(vBoxN), uBoxMix));
   float fres = pow(1.0 - clamp(dot(n, v), 0.0, 1.0), 2.4);
   vec3 r = reflect(-v, n);
   float sky = smoothstep(0.3, 0.8, r.y);

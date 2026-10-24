@@ -23,4 +23,10 @@
   --step-4: clamp(44px, 1.2rem + 6.4vw, 124px);
   --max: 1240px;
   --ease-out: cubic-bezier(0.2, 0.7, 0.1, 1);
+  --ok: #6ee7b7;
+  --g-web: #8fa4ff;
+  --g-mobile: #b89cff;
+  --g-backend: #4fd1c5;
+  --g-ai: #3d63ff;
+  --intro-delay: 0s;
 }

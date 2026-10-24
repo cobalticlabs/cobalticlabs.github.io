@@ -1,47 +1,7 @@
 .hero {
-  position: relative;
-  isolation: isolate;
   display: flex;
   align-items: flex-end;
   min-height: clamp(560px, 80vh, 820px);
-  overflow: hidden;
-  background:
-    radial-gradient(
-      40% 55% at 72% 42%,
-      rgba(43, 80, 255, 0.35),
-      transparent 70%
-    ),
-    radial-gradient(
-      30% 40% at 78% 48%,
-      rgba(143, 164, 255, 0.18),
-      transparent 70%
-    ),
-    var(--bg);
-}
-
-.hero__canvas {
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  display: block;
-  width: 100%;
-  height: 100%;
-  opacity: 0;
-  transition: opacity 1.2s ease;
-}
-
-.hero__canvas.is-ready {
-  opacity: 1;
-}
-
-.hero::after {
-  content: "";
-  position: absolute;
-  inset: auto 0 0;
-  z-index: -1;
-  height: 40%;
-  background: linear-gradient(to bottom, transparent, var(--bg));
-  pointer-events: none;
 }
 
 .hero__inner {
@@ -99,7 +59,17 @@
   }
 }
 
-@media (max-width: 560px) {
+@media (max-width: 759px) {
+  html {
+    background:
+      radial-gradient(
+        520px 520px at 50% 260px,
+        rgba(43, 80, 255, 0.28),
+        transparent 70%
+      ),
+      var(--bg);
+  }
+
   .hero {
     min-height: 640px;
   }

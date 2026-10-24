@@ -10,82 +10,6 @@
   gap: 18px;
 }
 
-.card__visual {
-  position: relative;
-  max-width: 100%;
-  aspect-ratio: 4 / 3.4;
-  overflow: hidden;
-  border: 1px solid var(--line);
-  border-radius: 14px;
-  background: var(--card-bg, var(--surface));
-  transition: transform 0.5s var(--ease-out);
-}
-
-.card:hover .card__visual {
-  transform: translateY(-6px);
-}
-
-.card__visual::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background-image:
-    linear-gradient(var(--line) 1px, transparent 1px),
-    linear-gradient(90deg, var(--line) 1px, transparent 1px);
-  background-size: 32px 32px;
-  mask-image: radial-gradient(70% 70% at 50% 50%, #000, transparent);
-  -webkit-mask-image: radial-gradient(70% 70% at 50% 50%, #000, transparent);
-  pointer-events: none;
-}
-
-.el {
-  position: absolute;
-  inset: 50% auto auto 50%;
-  z-index: 1;
-  display: grid;
-  place-items: center;
-  width: 46%;
-  aspect-ratio: 1;
-  translate: -50% -50%;
-  border: 1px solid rgba(255, 255, 255, 0.35);
-  border-radius: 12px;
-  background: rgba(6, 8, 15, 0.35);
-  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.35);
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
-}
-
-.el b {
-  font-family: var(--font-display);
-  font-stretch: 112%;
-  font-weight: 800;
-  font-size: clamp(40px, 5.4vw, 72px);
-  line-height: 1;
-  letter-spacing: -0.03em;
-  color: var(--on-cobalt);
-}
-
-.el i,
-.el small {
-  position: absolute;
-  font-family: var(--font-mono);
-  font-style: normal;
-  font-size: 11px;
-  color: rgba(255, 255, 255, 0.75);
-}
-
-.el i {
-  top: 10px;
-  left: 12px;
-}
-
-.el small {
-  right: 12px;
-  bottom: 10px;
-  left: 12px;
-  text-align: center;
-}
-
 .card h3 {
   font-family: var(--font-display);
   font-stretch: 112%;
@@ -119,6 +43,124 @@
   font-size: 14px;
 }
 
+.card__visual {
+  position: relative;
+  max-width: 100%;
+  aspect-ratio: 4 / 3.4;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--card-bg, var(--surface));
+  transform: perspective(900px) rotateX(var(--rx, 0deg))
+    rotateY(var(--ry, 0deg));
+  transition: transform 0.5s var(--ease-out);
+}
+
+.card:hover .card__visual {
+  transition-duration: 0.15s;
+}
+
+.card__visual::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background-image:
+    linear-gradient(var(--line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--line) 1px, transparent 1px);
+  background-size: 32px 32px;
+  mask-image: radial-gradient(70% 70% at 50% 50%, #000, transparent);
+  -webkit-mask-image: radial-gradient(70% 70% at 50% 50%, #000, transparent);
+  pointer-events: none;
+}
+
+.el {
+  position: absolute;
+  inset: 50% auto auto 50%;
+  z-index: 1;
+  width: 46%;
+  aspect-ratio: 1;
+  translate: -50% -50%;
+  perspective: 800px;
+}
+
+.el__inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 0.7s var(--ease-out);
+}
+
+.card:hover .el__inner,
+.card:focus-visible .el__inner {
+  transform: rotateY(180deg);
+}
+
+.el__face {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: 12px;
+  background: rgba(6, 8, 15, 0.55);
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.35);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.el__front b {
+  font-family: var(--font-display);
+  font-stretch: 112%;
+  font-weight: 800;
+  font-size: clamp(40px, 5.4vw, 72px);
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: var(--on-cobalt);
+}
+
+.el__front i,
+.el__front small {
+  position: absolute;
+  font-family: var(--font-mono);
+  font-style: normal;
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.el__front i {
+  top: 10px;
+  left: 12px;
+}
+
+.el__front small {
+  right: 12px;
+  bottom: 10px;
+  left: 12px;
+  text-align: center;
+}
+
+.el__back {
+  align-content: center;
+  gap: 12px;
+  padding: 14px;
+  text-align: center;
+  background: var(--cobalt);
+  transform: rotateY(180deg);
+}
+
+.el__back small {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.el__back span {
+  font-weight: 700;
+  font-size: 15px;
+  color: var(--on-cobalt);
+}
+
 @media (max-width: 960px) {
   .work {
     grid-template-columns: minmax(0, 1fr);
@@ -136,6 +178,13 @@
 
 @media (max-width: 560px) {
   .el {
-    width: 40%;
+    width: 44%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .el__inner,
+  .card__visual {
+    transition: none;
   }
 }

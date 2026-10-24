@@ -11,6 +11,7 @@
 }
 
 .head h2 {
+  max-width: 22ch;
   font-family: var(--font-display);
   font-stretch: 118%;
   font-weight: 800;
@@ -18,4 +19,16 @@
   line-height: 1;
   letter-spacing: -0.03em;
   text-wrap: balance;
+}
+
+.head__note {
+  max-width: 52ch;
+  color: var(--muted);
+}
+
+.head__link {
+  justify-self: start;
+  border-bottom: 1px solid currentColor;
+  color: var(--cobalt-light);
+  font-weight: 600;
 }
