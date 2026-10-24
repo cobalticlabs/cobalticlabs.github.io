@@ -88,13 +88,15 @@ export function ContactForm() {
         <span>Tell us about it</span>
         <textarea id="cf-message" name="message" rows={4} required />
       </label>
-      <input
-        type="checkbox"
-        name="botcheck"
-        className="cform__trap"
-        tabIndex={-1}
-        autoComplete="off"
-      />
+      <label className="cform__trap" aria-hidden="true">
+        Leave this empty
+        <input
+          type="checkbox"
+          name="botcheck"
+          tabIndex={-1}
+          autoComplete="off"
+        />
+      </label>
       <div className="cform__foot">
         <button
           type="submit"

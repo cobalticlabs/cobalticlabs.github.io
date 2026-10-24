@@ -19,6 +19,8 @@ import { fragmentShader, vertexShader } from "./cobalt-shaders";
 import { stagePose, WIDE_MIN_PX, type Band, type Pose } from "./stage";
 
 const BLOB_RADIUS = 1.15;
+const DETAIL_SMALL = 40;
+const DETAIL_LARGE = 72;
 const DUST_COUNT = 900;
 const DUST_OPACITY = 0.7;
 const MAX_STEP_S = 0.05;
@@ -43,10 +45,23 @@ function isShape(value: string | undefined): value is ShapeId {
   return value !== undefined && value in SHAPES;
 }
 
-function band(el: Element | null): Band | null {
+interface Layout {
+  hero: Band | null;
+  services: Band | null;
+  rows: { shape: ShapeId; center: number }[];
+}
+
+function pageBand(el: Element | null): Band | null {
   if (!el) return null;
   const rect = el.getBoundingClientRect();
-  return { top: rect.top, bottom: rect.bottom };
+  return {
+    top: rect.top + window.scrollY,
+    bottom: rect.bottom + window.scrollY,
+  };
+}
+
+function shift(band: Band | null, scroll: number): Band | null {
+  return band && { top: band.top - scroll, bottom: band.bottom - scroll };
 }
 
 function ease(rate: number, dt: number): number {
@@ -95,7 +110,10 @@ export function startCobaltScene(
     uGlow: { value: new Color("#9fb4ff") },
   };
 
-  const blobGeometry = new IcosahedronGeometry(BLOB_RADIUS, small ? 64 : 96);
+  const blobGeometry = new IcosahedronGeometry(
+    BLOB_RADIUS,
+    small ? DETAIL_SMALL : DETAIL_LARGE,
+  );
   const blobMaterial = new ShaderMaterial({
     uniforms,
     vertexShader,
@@ -145,17 +163,33 @@ export function startCobaltScene(
     row.addEventListener("pointerleave", onRowLeave);
   }
 
-  const centeredShape = (): ShapeId => {
+  const measure = (): Layout => ({
+    hero: pageBand(hero),
+    services: pageBand(services),
+    rows: rows.flatMap((row) => {
+      const shape = row.dataset.shape;
+      const band = pageBand(row);
+      return isShape(shape) && band
+        ? [{ shape, center: (band.top + band.bottom) / 2 }]
+        : [];
+    }),
+  });
+  let layout = measure();
+  const relayout = () => {
+    layout = measure();
+  };
+  const layoutObserver = new ResizeObserver(relayout);
+  layoutObserver.observe(document.body);
+
+  const centeredShape = (scroll: number): ShapeId => {
     if (hovered) return hovered;
-    const middle = window.innerHeight / 2;
+    const middle = scroll + window.innerHeight / 2;
     let best: ShapeId = "blob";
     let bestDistance = Infinity;
-    for (const row of rows) {
-      const rect = row.getBoundingClientRect();
-      const distance = Math.abs(rect.top + rect.height / 2 - middle);
-      const shape = row.dataset.shape;
-      if (distance < bestDistance && isShape(shape)) {
-        best = shape;
+    for (const row of layout.rows) {
+      const distance = Math.abs(row.center - middle);
+      if (distance < bestDistance) {
+        best = row.shape;
         bestDistance = distance;
       }
     }
@@ -186,12 +220,13 @@ export function startCobaltScene(
   const step = (dt: number, instant: boolean) => {
     const width = window.innerWidth;
     const height = window.innerHeight;
+    const scroll = window.scrollY;
     const goal = stagePose({
       width,
       height,
-      hero: band(hero) ?? { top: 0, bottom: height },
-      services: band(services),
-      shape: centeredShape(),
+      hero: shift(layout.hero, scroll) ?? { top: 0, bottom: height },
+      services: shift(layout.services, scroll),
+      shape: centeredShape(scroll),
     });
 
     const follow = instant ? 1 : ease(FOLLOW, dt);
@@ -276,6 +311,7 @@ export function startCobaltScene(
 
   const onResize = () => {
     resize();
+    relayout();
     if (reduceMotion) redraw();
   };
   window.addEventListener("resize", onResize);
@@ -292,6 +328,7 @@ export function startCobaltScene(
   return () => {
     cancelAnimationFrame(frame);
     cancelAnimationFrame(still);
+    layoutObserver.disconnect();
     window.removeEventListener("resize", onResize);
     window.removeEventListener("scroll", redraw);
     window.removeEventListener("pointermove", onPointerMove);

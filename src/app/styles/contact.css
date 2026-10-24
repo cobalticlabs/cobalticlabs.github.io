@@ -41,7 +41,7 @@
 }
 
 .cta .cta__kicker {
-  color: rgba(255, 255, 255, 0.75);
+  color: var(--on-cobalt);
 }
 
 .cta h2 {
@@ -58,7 +58,7 @@
 .cta__inner > p:not(.mono) {
   max-width: 44ch;
   font-size: var(--step-1);
-  color: rgba(255, 255, 255, 0.82);
+  color: var(--on-cobalt);
 }
 
 .cta__row {
@@ -99,14 +99,14 @@
   flex: none;
   padding: 8px 14px;
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.16);
+  background: rgba(6, 8, 15, 0.35);
   color: var(--on-cobalt);
   font: 600 13px var(--font-body);
   cursor: pointer;
 }
 
 .email button:hover {
-  background: rgba(255, 255, 255, 0.28);
+  background: rgba(6, 8, 15, 0.55);
 }
 
 .cform {
@@ -166,7 +166,9 @@
   position: absolute;
   width: 1px;
   height: 1px;
-  opacity: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
   pointer-events: none;
 }
 
