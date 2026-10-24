@@ -22,6 +22,11 @@ export const element = {
   mass: "58.933 u",
 } as const;
 
+export const brandStory = {
+  short: "Named after cobalt",
+  long: "Cobaltic is named after cobalt (Co, element 27), the metal that quietly powers the batteries in phones and laptops.",
+};
+
 export const nav = [
   { href: "/#services", label: "Services" },
   { href: "/#work", label: "Work" },

@@ -14,7 +14,7 @@ import {
   testimonials,
 } from "./home";
 import { getPost, posts } from "./posts";
-import { absoluteUrl, element, nav, site } from "./site";
+import { absoluteUrl, brandStory, element, nav, site } from "./site";
 import { getProject, work } from "./work";
 
 describe("site", () => {
@@ -36,6 +36,11 @@ describe("site", () => {
 
   it("matches cobalt on the periodic table", () => {
     expect(element).toEqual({ symbol: "Co", number: 27, mass: "58.933 u" });
+  });
+
+  it("explains the name in one short line and one sentence", () => {
+    expect(brandStory.short.length).toBeLessThan(24);
+    expect(brandStory.long).toContain("cobalt");
   });
 
   it("points every nav link at a section or a page", () => {

@@ -46,6 +46,15 @@ describe("stagePose", () => {
     expect(pose.opacity).toBe(1);
   });
 
+  it("keeps the whole shape on screen, wobble included", () => {
+    for (const width of [1100, 1280, 1440, 1920]) {
+      const pose = stagePose(
+        desktop({ width, hero: { top: 0, bottom: 1000 } }),
+      );
+      expect(pose.x + pose.radius * 1.35).toBeLessThanOrEqual(width - 16);
+    }
+  });
+
   it("fades out once the services have scrolled past", () => {
     const pose = stagePose(
       desktop({
