@@ -1,4 +1,12 @@
-import type { Founder, Project, Service, Step } from "./types";
+import type {
+  Engagement,
+  Faq,
+  Founder,
+  Service,
+  Step,
+  TableElement,
+  Testimonial,
+} from "./types";
 
 export const hero = {
   eyebrow: "Software studio · Lahore, Pakistan",
@@ -31,60 +39,75 @@ export const services: Service[] = [
     summary:
       "Marketing sites that load fast and rank on Google, and web apps your customers log into every day.",
     tags: ["Next.js", "React", "SEO", "Dashboards"],
+    shape: "browser",
   },
   {
     title: "Mobile apps",
     summary:
       "iOS and Android apps from one codebase, with the backend, payments and admin panel they need.",
     tags: ["React Native", "iOS", "Android", "Payments"],
+    shape: "phone",
   },
   {
     title: "AI automations & agents",
     summary:
       "Chatbots that answer from your own documents, agents that take over repetitive work, and pipelines that read PDFs and emails for you.",
     tags: ["RAG", "Agents", "Document AI", "Evaluation"],
+    shape: "network",
   },
 ];
+
+export const tableIntro = {
+  kicker: "Our elements",
+  title: "The periodic table of what we build with.",
+  hint: "Pick a group to light it up.",
+};
+
+export const groups = [
+  { id: "web", label: "Web" },
+  { id: "mobile", label: "Mobile" },
+  { id: "backend", label: "Backend" },
+  { id: "ai", label: "AI" },
+] as const;
+
+export const elements: TableElement[] = [
+  { symbol: "Nx", name: "Next.js", group: "web" },
+  { symbol: "Re", name: "React", group: "web" },
+  { symbol: "Ts", name: "TypeScript", group: "web" },
+  { symbol: "Tw", name: "Tailwind CSS", group: "web" },
+  { symbol: "Hn", name: "Hono", group: "web" },
+  { symbol: "Vt", name: "Vite", group: "web" },
+  { symbol: "Rn", name: "React Native", group: "mobile" },
+  { symbol: "Io", name: "iOS", group: "mobile" },
+  { symbol: "Ad", name: "Android", group: "mobile" },
+  { symbol: "Fa", name: "FastAPI", group: "backend" },
+  { symbol: "Py", name: "Python", group: "backend" },
+  { symbol: "Nd", name: "Node.js", group: "backend" },
+  { symbol: "Pg", name: "PostgreSQL", group: "backend" },
+  { symbol: "Rd", name: "Redis", group: "backend" },
+  { symbol: "Ce", name: "Celery", group: "backend" },
+  { symbol: "Rb", name: "RabbitMQ", group: "backend" },
+  { symbol: "Dk", name: "Docker", group: "backend" },
+  { symbol: "Ga", name: "GitHub Actions", group: "backend" },
+  { symbol: "St", name: "Stripe", group: "backend" },
+  { symbol: "Lm", name: "LLMs", group: "ai" },
+  { symbol: "Rg", name: "RAG", group: "ai" },
+  { symbol: "Ag", name: "Agents", group: "ai" },
+  { symbol: "Ev", name: "Evals", group: "ai" },
+  { symbol: "Dc", name: "Document AI", group: "ai" },
+  { symbol: "Em", name: "Embeddings", group: "ai" },
+];
+
+export const demoIntro = {
+  kicker: "See it work",
+  title: "An AI automation, step by step.",
+  note: "A demo with sample data. Pick a task to watch it run.",
+};
 
 export const workIntro = {
   kicker: "Selected work · built by our founder",
   title: "Every project gets its own element.",
 };
-
-export const work: Project[] = [
-  {
-    name: "Legiflow",
-    symbol: "Lf",
-    kind: "AI",
-    stack: ["FastAPI", "Gemini"],
-    summary:
-      "An AI assistant for lawyers that answers only from the case file in front of it, with a citation for every answer.",
-    stat: { value: "40%", label: "less time reviewing case files" },
-    background:
-      "radial-gradient(80% 90% at 30% 20%, #3d63ff, #0b2bb8 55%, #06080f)",
-  },
-  {
-    name: "Talkspresso",
-    symbol: "Ts",
-    kind: "Web",
-    stack: ["Next.js", "Node.js"],
-    summary:
-      "Booking, payments and built-in video calls for coaches and consultants, built end to end by one developer.",
-    stat: { value: "1", label: "developer, frontend to payments" },
-    background:
-      "radial-gradient(80% 90% at 70% 25%, #8fa4ff, #2b50ff 45%, #0c1120)",
-  },
-  {
-    name: "LLM Evaluator",
-    symbol: "Ev",
-    kind: "AI",
-    stack: ["FastAPI", "Pytest"],
-    summary:
-      "Checks AI tool calls against the real database, so a model change ships only when nothing breaks.",
-    background:
-      "radial-gradient(80% 90% at 40% 80%, #1f3bd6, #121a30 55%, #06080f)",
-  },
-];
 
 export const processIntro = {
   kicker: "How we work",
@@ -114,6 +137,94 @@ export const steps: Step[] = [
   },
 ];
 
+export const engagementsIntro = {
+  kicker: "Ways to work with us",
+  title: "Pick the setup that fits.",
+};
+
+export const engagements: Engagement[] = [
+  {
+    name: "Fixed-price project",
+    bestFor: "Websites, apps and first versions with a clear goal.",
+    includes: [
+      "A written plan and a fixed price before work starts",
+      "Weekly demos you can click through",
+      "Launch, handover and a walkthrough for your team",
+    ],
+    price: "Price agreed after the first call",
+  },
+  {
+    name: "Monthly support",
+    bestFor: "Products that keep growing after launch.",
+    includes: [
+      "A set number of hours every month",
+      "New features, fixes and updates",
+      "Help when something breaks",
+    ],
+    price: "Monthly, based on hours",
+  },
+  {
+    name: "AI automation audit",
+    bestFor: "Teams that want to know where AI can help.",
+    includes: [
+      "A look at how your team works today",
+      "A list of the tasks AI can take over",
+      "A plan with costs and next steps",
+    ],
+    price: "A short, fixed-price review",
+  },
+];
+
+export const testimonialsIntro = {
+  kicker: "Kind words",
+  title: "What people say.",
+};
+
+export const testimonials: Testimonial[] = [];
+
+export const faqIntro = {
+  kicker: "Questions",
+  title: "Things people ask before we start.",
+};
+
+export const faqs: Faq[] = [
+  {
+    question: "How much does a project cost?",
+    answer:
+      "It depends on what you need. After a free 30-minute call we send a written plan with a fixed price, so you know the cost before any work starts.",
+  },
+  {
+    question: "How long does it take?",
+    answer:
+      "A marketing website usually takes a few weeks. A mobile app or an AI system takes longer. The written plan includes a timeline with weekly milestones.",
+  },
+  {
+    question: "Who owns the code?",
+    answer:
+      "You do. Once the project is paid, the code, designs and accounts are yours, and we hand everything over.",
+  },
+  {
+    question: "Can you work with our existing team or code?",
+    answer:
+      "Yes. We can join an existing codebase, work alongside your developers, or pick up a project that has stalled.",
+  },
+  {
+    question: "What happens after launch?",
+    answer:
+      "We watch the launch closely and fix anything that comes up. After that you can keep us on monthly support for new features and updates, or run it yourself.",
+  },
+  {
+    question: "Do you sign NDAs?",
+    answer:
+      "Yes. We're happy to sign an NDA before you share the details of your idea.",
+  },
+  {
+    question: "Do you work with clients outside Pakistan?",
+    answer:
+      "Yes. We're based in Lahore and work with clients anywhere. Calls happen over video at a time that suits both sides.",
+  },
+];
+
 export const founder: Founder = {
   name: "Abdul Basit",
   role: "Founder · Software engineer building AI systems, LLM pipelines and full-stack apps.",
@@ -122,9 +233,23 @@ export const founder: Founder = {
   portfolio: "https://abdulbaxit.github.io",
 };
 
+export const blogIntro = {
+  kicker: "Blog",
+  title: "Notes from the lab.",
+  lede: "Short, practical writing about building software and putting AI to work.",
+};
+
 export const contact = {
   kicker: "Start a project",
   title: "Have an idea? Let's build it.",
   body: "Tell us what you want to make. We'll reply within one working day with honest advice and a rough plan.",
   cta: "Book a 30-minute call",
+  formTitle: "Or send a message",
+  projectTypes: [
+    "Website",
+    "Web app",
+    "Mobile app",
+    "AI automation",
+    "Not sure yet",
+  ],
 };

@@ -26,8 +26,14 @@ export const nav = [
   { href: "/#services", label: "Services" },
   { href: "/#work", label: "Work" },
   { href: "/#process", label: "Process" },
+  { href: "/#faq", label: "FAQ" },
+  { href: "/blog", label: "Blog" },
   { href: "/#contact", label: "Contact" },
 ] as const;
+
+export const contactForm: { web3formsKey: string | null } = {
+  web3formsKey: null,
+};
 
 export function absoluteUrl(path = "/"): string {
   const clean = path.startsWith("/") ? path : `/${path}`;

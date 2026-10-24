@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { CobaltCanvas } from "./CobaltCanvas";
 import { ArrowIcon } from "./Icons";
 import { Rich } from "./Rich";
 import { hero } from "@/content/home";
@@ -7,8 +6,12 @@ import { element, site } from "@/content/site";
 
 export function Hero() {
   return (
-    <section className="hero" id="top" aria-label="Introduction">
-      <CobaltCanvas />
+    <section
+      className="hero"
+      id="top"
+      aria-label="Introduction"
+      data-stage="hero"
+    >
       <div className="wrap hero__inner">
         <p className="mono rise" style={{ "--d": 0 } as React.CSSProperties}>
           {hero.eyebrow}

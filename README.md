@@ -21,13 +21,23 @@ npm run format   # apply Prettier
 Every word on the site comes from `src/content/`, so a copy change never means
 touching a component.
 
-| File                   | What it holds                                                       |
-| ---------------------- | ------------------------------------------------------------------- |
-| `src/content/site.ts`  | Name, URL, title, description, email, booking link, location, nav   |
-| `src/content/home.ts`  | Hero, technologies, services, work, process steps, founder, contact |
-| `src/content/types.ts` | The shape of all of the above                                       |
+| File                   | What it holds                                                                                  |
+| ---------------------- | ---------------------------------------------------------------------------------------------- |
+| `src/content/site.ts`  | Name, URL, title, description, email, booking link, location, nav                              |
+| `src/content/home.ts`  | Hero, services, the periodic table, process, ways to work, testimonials, FAQ, founder, contact |
+| `src/content/work.ts`  | Projects and their case studies at `/work/<slug>/`                                             |
+| `src/content/demos.ts` | The AI demo's tasks, steps and sample output                                                   |
+| `src/content/posts.ts` | Blog posts at `/blog/<slug>/`                                                                  |
+| `src/content/types.ts` | The shape of all of the above                                                                  |
 
 Wrap words in `*asterisks*` in the hero headline or lede to highlight them.
+The testimonials section stays hidden while `testimonials` is empty, so only
+add quotes you have permission to publish.
+
+The contact form needs a free [Web3Forms](https://web3forms.com) access key in
+`contactForm.web3formsKey` (`src/content/site.ts`) to send messages to your
+inbox. Until one is set, it opens the visitor's email app with the message
+filled in.
 
 ## Design
 
@@ -37,11 +47,19 @@ the type scale live in `src/app/styles/tokens.css`. Each part of the page has
 its own stylesheet in `src/app/styles/`, imported in order by
 `src/app/globals.css`.
 
-The hero's 3D shape is a three.js mesh with a noise shader
-(`src/lib/cobalt-shaders.ts`), set up in `src/lib/cobalt-scene.ts`. It loads
-after the page, pauses when off screen, renders a single still frame under
-`prefers-reduced-motion`, and leaves the hero's glow in place when a device
-has no WebGL.
+The 3D shape is a three.js mesh with a noise shader
+(`src/lib/cobalt-shaders.ts`), drawn on a fixed canvas by
+`src/lib/cobalt-scene.ts`. On wide screens it follows the page from the hero to
+the services and morphs into the shape of the service in view (a browser, a
+phone or a network); where it sits is worked out by `stagePose` in
+`src/lib/stage.ts`. It loads after the page, stops drawing while hidden, holds
+still under `prefers-reduced-motion`, and leaves the hero's glow in place when
+a device has no WebGL.
+
+Other motion: a one-time intro (`Intro`), heading reveals and card tilt
+(`Motion`), a custom cursor on mouse devices (`Cursor`) and a background that
+warms towards cobalt as the page scrolls (a CSS scroll-driven animation). All
+of it stands down under `prefers-reduced-motion`.
 
 The share image is `public/og.png` (1200 × 630). The favicon and the home-screen
 icon are `src/app/icon.svg` and `src/app/apple-icon.png`.

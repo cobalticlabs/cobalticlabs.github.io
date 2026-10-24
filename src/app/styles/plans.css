@@ -1,0 +1,91 @@
+.plans,
+.quotes {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.plan {
+  display: grid;
+  grid-template-rows: auto auto 1fr auto auto;
+  gap: 14px;
+  padding: 28px;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: linear-gradient(160deg, var(--surface-2), var(--surface) 70%);
+}
+
+.plan h3 {
+  font-family: var(--font-display);
+  font-stretch: 112%;
+  font-weight: 700;
+  font-size: var(--step-1);
+}
+
+.plan__for {
+  color: var(--muted);
+}
+
+.plan ul {
+  display: grid;
+  align-content: start;
+  gap: 10px;
+}
+
+.plan li {
+  display: flex;
+  gap: 10px;
+  font-size: 15px;
+}
+
+.plan li::before {
+  content: "";
+  flex: none;
+  width: 8px;
+  height: 8px;
+  margin-top: 8px;
+  border-radius: 2px;
+  background: var(--cobalt);
+}
+
+.plan__price {
+  padding-top: 14px;
+  border-top: 1px solid var(--line);
+  color: var(--cobalt-light);
+}
+
+.plan .btn {
+  justify-self: start;
+}
+
+.quote {
+  display: grid;
+  align-content: space-between;
+  gap: 20px;
+  padding: 28px;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: var(--surface);
+}
+
+.quote blockquote {
+  font-size: var(--step-1);
+  line-height: 1.45;
+}
+
+.quote figcaption {
+  display: grid;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.quote strong {
+  color: var(--fg);
+}
+
+@media (max-width: 960px) {
+  .plans,
+  .quotes {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

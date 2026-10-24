@@ -1,0 +1,83 @@
+.cursor-dot,
+.cursor-ring {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 90;
+  display: none;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+
+html.has-cursor .cursor-dot {
+  display: block;
+}
+
+html.has-cursor .cursor-ring {
+  display: grid;
+}
+
+html.has-cursor,
+html.has-cursor * {
+  cursor: none !important;
+}
+
+html.has-cursor :is(input, textarea, select) {
+  cursor: auto !important;
+}
+
+html.cursor-hidden .cursor-dot,
+html.cursor-hidden .cursor-ring {
+  opacity: 0;
+}
+
+.cursor-dot {
+  width: 6px;
+  height: 6px;
+  margin: -3px 0 0 -3px;
+  border-radius: 50%;
+  background: var(--cobalt-light);
+}
+
+.cursor-ring {
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  margin: -18px 0 0 -18px;
+  border: 1px solid rgba(143, 164, 255, 0.6);
+  border-radius: 50%;
+  transition:
+    width 0.25s var(--ease-out),
+    height 0.25s var(--ease-out),
+    margin 0.25s var(--ease-out),
+    background-color 0.25s ease,
+    border-color 0.25s ease,
+    opacity 0.2s ease;
+}
+
+html.cursor-hover .cursor-ring {
+  width: 56px;
+  height: 56px;
+  margin: -28px 0 0 -28px;
+  border-color: var(--cobalt-light);
+}
+
+.cursor-ring.has-label,
+html.cursor-hover .cursor-ring.has-label {
+  width: 84px;
+  height: 84px;
+  margin: -42px 0 0 -42px;
+  border-color: var(--cobalt);
+  background: var(--cobalt);
+}
+
+.cursor-ring span {
+  font-weight: 600;
+  font-size: 12px;
+  color: var(--on-cobalt);
+  opacity: 0;
+}
+
+.cursor-ring.has-label span {
+  opacity: 1;
+}

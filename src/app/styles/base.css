@@ -1,5 +1,15 @@
+html {
+  scroll-behavior: smooth;
+  background:
+    radial-gradient(
+      900px 640px at 72% 380px,
+      rgba(43, 80, 255, 0.26),
+      transparent 70%
+    ),
+    var(--bg);
+}
+
 body {
-  background: var(--bg);
   color: var(--fg);
   font-family: var(--font-body);
   font-size: var(--step-0);
@@ -17,8 +27,52 @@ body::before {
   background: var(--bg);
 }
 
-html {
-  scroll-behavior: smooth;
+.hero,
+.strip,
+main,
+.cta,
+.foot {
+  position: relative;
+  z-index: 1;
+}
+
+.stage {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  opacity: 0;
+  pointer-events: none;
+  background: radial-gradient(
+    90% 60% at 50% 115%,
+    rgba(43, 80, 255, 0.55),
+    transparent 70%
+  );
+}
+
+@supports (animation-timeline: scroll()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .backdrop {
+      animation: backdrop-in linear both;
+      animation-timeline: scroll(root);
+      animation-range: 35% 95%;
+    }
+  }
+}
+
+@keyframes backdrop-in {
+  to {
+    opacity: 1;
+  }
 }
 
 ::selection {
@@ -96,6 +150,7 @@ section[id] {
   border-radius: 999px;
   font-weight: 600;
   font-size: 15px;
+  cursor: pointer;
   transition:
     transform 0.25s ease,
     background-color 0.25s ease,
@@ -127,10 +182,49 @@ section[id] {
   display: block;
 }
 
+[data-split] .w {
+  display: inline-block;
+  overflow: hidden;
+  padding-bottom: 0.1em;
+  margin-bottom: -0.1em;
+  vertical-align: top;
+}
+
+[data-split] .w > span {
+  display: inline-block;
+}
+
 @media (prefers-reduced-motion: no-preference) {
+  html:not(.intro-seen) {
+    --intro-delay: 1.2s;
+  }
+
   .rise {
     animation: rise 0.9s var(--ease-out) both;
-    animation-delay: calc(var(--d, 0) * 90ms + 150ms);
+    animation-delay: calc(var(--d, 0) * 90ms + 150ms + var(--intro-delay));
+  }
+
+  .motion-ok [data-split] .w > span {
+    transform: translateY(110%);
+    transition: transform 0.8s var(--ease-out);
+    transition-delay: calc(var(--i) * 45ms);
+  }
+
+  .motion-ok [data-split].is-in .w > span {
+    transform: none;
+  }
+
+  .motion-ok [data-reveal] {
+    opacity: 0;
+    translate: 0 28px;
+    transition:
+      opacity 0.7s ease,
+      translate 0.8s var(--ease-out);
+  }
+
+  .motion-ok [data-reveal].is-in {
+    opacity: 1;
+    translate: 0 0;
   }
 }
 

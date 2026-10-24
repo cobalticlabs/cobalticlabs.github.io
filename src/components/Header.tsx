@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { ElementTile } from "./ElementTile";
+import { MobileNav } from "./MobileNav";
 import { element, nav, site } from "@/content/site";
 
 export function Header() {
@@ -25,6 +26,7 @@ export function Header() {
         >
           Book a call
         </a>
+        <MobileNav />
       </div>
     </header>
   );

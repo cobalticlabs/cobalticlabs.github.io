@@ -1,6 +1,9 @@
 import type { Metadata, Viewport } from "next";
 import { Archivo, IBM_Plex_Mono } from "next/font/google";
 import "./globals.css";
+import { Cursor } from "@/components/Cursor";
+import { Intro, introScript } from "@/components/Intro";
+import { Motion } from "@/components/Motion";
 import { absoluteUrl, site } from "@/content/site";
 
 const archivo = Archivo({
@@ -61,8 +64,18 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       lang="en"
       className={`${archivo.variable} ${plexMono.variable}`}
       data-scroll-behavior="smooth"
+      suppressHydrationWarning
     >
-      <body>{children}</body>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: introScript }} />
+      </head>
+      <body>
+        <Intro />
+        <div className="backdrop" aria-hidden="true" />
+        {children}
+        <Motion />
+        <Cursor />
+      </body>
     </html>
   );
 }

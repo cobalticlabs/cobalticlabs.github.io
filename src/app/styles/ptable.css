@@ -1,0 +1,134 @@
+[data-g="web"] {
+  --g: var(--g-web);
+}
+
+[data-g="mobile"] {
+  --g: var(--g-mobile);
+}
+
+[data-g="backend"] {
+  --g: var(--g-backend);
+}
+
+[data-g="ai"] {
+  --g: var(--g-ai);
+}
+
+.ptable__legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.ptable__chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 13px;
+  color: var(--fg);
+  cursor: pointer;
+  transition:
+    border-color 0.25s ease,
+    background-color 0.25s ease;
+}
+
+.ptable__chip::before {
+  content: "";
+  width: 10px;
+  height: 10px;
+  border-radius: 3px;
+  background: var(--g);
+}
+
+.ptable__chip:is(:hover, :focus) {
+  border-color: var(--g);
+  background: color-mix(in srgb, var(--g) 18%, transparent);
+}
+
+.ptable__grid {
+  display: grid;
+  grid-template-columns: repeat(9, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.ptable__cell {
+  position: relative;
+  display: grid;
+  align-content: space-between;
+  min-width: 0;
+  aspect-ratio: 1;
+  padding: 8px 10px;
+  border: 1px solid color-mix(in srgb, var(--g) 45%, transparent);
+  border-radius: 10px;
+  background: linear-gradient(
+    160deg,
+    color-mix(in srgb, var(--g) 18%, var(--surface)),
+    var(--bg)
+  );
+  transition:
+    opacity 0.3s ease,
+    transform 0.3s var(--ease-out),
+    border-color 0.3s ease;
+}
+
+.ptable__cell:hover {
+  transform: translateY(-4px);
+  border-color: var(--g);
+}
+
+.ptable__n {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--muted);
+}
+
+.ptable__cell b {
+  font-family: var(--font-display);
+  font-stretch: 112%;
+  font-weight: 800;
+  font-size: clamp(20px, 2.4vw, 34px);
+  line-height: 1;
+}
+
+.ptable__name {
+  overflow: hidden;
+  font-size: 11px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  color: var(--muted);
+}
+
+.ptable:has([data-g="web"]:is(:hover, :focus))
+  .ptable__cell:not([data-g="web"]),
+.ptable:has([data-g="mobile"]:is(:hover, :focus))
+  .ptable__cell:not([data-g="mobile"]),
+.ptable:has([data-g="backend"]:is(:hover, :focus))
+  .ptable__cell:not([data-g="backend"]),
+.ptable:has([data-g="ai"]:is(:hover, :focus)) .ptable__cell:not([data-g="ai"]) {
+  opacity: 0.18;
+}
+
+@media (max-width: 860px) {
+  .ptable__grid {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 420px) {
+  .ptable__grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .ptable__cell {
+    padding: 6px 7px;
+  }
+
+  .ptable__name {
+    font-size: 9px;
+  }
+}
