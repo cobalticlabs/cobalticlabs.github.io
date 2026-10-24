@@ -48,6 +48,15 @@ icon are `src/app/icon.svg` and `src/app/apple-icon.png`.
 
 ## Deploying
 
-`npm run build` writes a static site to `./out`, which any static host can
-serve. Pull requests and pushes to `main` run `npm run check` and a build in
+The site is hosted on GitHub Pages from the `cobalticlabs` organization. Every
+push to `main` runs `.github/workflows/deploy.yml`, which checks, builds and
+publishes `./out`. Pull requests run the same checks in
 `.github/workflows/ci.yml`.
+
+The deploy reads the site's address from GitHub Pages, so canonical links, the
+sitemap and share images follow it: `https://cobalticlabs.github.io` today, and
+the custom domain once one is set under **Settings → Pages → Custom domain**.
+`NEXT_PUBLIC_SITE_URL` and `NEXT_PUBLIC_BASE_PATH` override it for local builds.
+
+One-time setup: **Settings → Pages → Build and deployment → Source: GitHub
+Actions**.

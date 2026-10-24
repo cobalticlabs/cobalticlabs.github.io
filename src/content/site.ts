@@ -1,6 +1,8 @@
 export const site = {
   name: "Cobaltic Labs",
-  url: "https://cobalticlabs.com",
+  url: (
+    process.env.NEXT_PUBLIC_SITE_URL || "https://cobalticlabs.github.io"
+  ).replace(/\/$/, ""),
   title: "Cobaltic Labs · Websites, mobile apps and AI automations",
   description:
     "Cobaltic Labs is a software studio in Lahore, Pakistan. We design and build websites, mobile apps and AI automations for startups and growing businesses.",
