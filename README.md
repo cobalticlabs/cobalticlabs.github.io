@@ -1,36 +1,53 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Cobaltic Labs
 
-## Getting Started
+The website of Cobaltic Labs, a software studio in Lahore building websites,
+mobile apps and AI automations.
 
-First, run the development server:
+## Tech
+
+Next.js 16 (App Router, static export), React 19, Tailwind CSS 4, TypeScript and
+three.js for the hero's 3D shape. Prettier for formatting, Vitest for tests.
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+npm run dev      # http://localhost:3000
+npm run build    # static export into ./out
+npm run check    # lint, types, formatting and tests
+npm run format   # apply Prettier
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Where the content lives
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Every word on the site comes from `src/content/`, so a copy change never means
+touching a component.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| File                   | What it holds                                                       |
+| ---------------------- | ------------------------------------------------------------------- |
+| `src/content/site.ts`  | Name, URL, title, description, email, booking link, location, nav   |
+| `src/content/home.ts`  | Hero, technologies, services, work, process steps, founder, contact |
+| `src/content/types.ts` | The shape of all of the above                                       |
 
-## Learn More
+Wrap words in `*asterisks*` in the hero headline or lede to highlight them.
 
-To learn more about Next.js, take a look at the following resources:
+## Design
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+The brand comes from the name: cobalt is element 27, symbol Co, so the logo is
+a periodic-table tile and every project gets its own tile. Colours, fonts and
+the type scale live in `src/app/styles/tokens.css`. Each part of the page has
+its own stylesheet in `src/app/styles/`, imported in order by
+`src/app/globals.css`.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+The hero's 3D shape is a three.js mesh with a noise shader
+(`src/lib/cobalt-shaders.ts`), set up in `src/lib/cobalt-scene.ts`. It loads
+after the page, pauses when off screen, renders a single still frame under
+`prefers-reduced-motion`, and leaves the hero's glow in place when a device
+has no WebGL.
 
-## Deploy on Vercel
+The share image is `public/og.png` (1200 × 630). The favicon and the home-screen
+icon are `src/app/icon.svg` and `src/app/apple-icon.png`.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Deploying
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+`npm run build` writes a static site to `./out`, which any static host can
+serve. Pull requests and pushes to `main` run `npm run check` and a build in
+`.github/workflows/ci.yml`.

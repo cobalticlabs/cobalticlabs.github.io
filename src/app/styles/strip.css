@@ -1,0 +1,43 @@
+.strip {
+  overflow: hidden;
+  border-block: 1px solid var(--line);
+}
+
+.strip__track {
+  display: flex;
+  gap: 48px;
+  width: max-content;
+  padding-block: 18px;
+}
+
+.strip__track span {
+  display: inline-flex;
+  align-items: center;
+  gap: 48px;
+  white-space: nowrap;
+  font-family: var(--font-display);
+  font-stretch: 112%;
+  font-weight: 600;
+  font-size: 18px;
+  color: var(--muted);
+}
+
+.strip__track span::after {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 2px;
+  background: var(--cobalt);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .strip__track {
+    animation: slide 38s linear infinite;
+  }
+}
+
+@keyframes slide {
+  to {
+    transform: translateX(-50%);
+  }
+}

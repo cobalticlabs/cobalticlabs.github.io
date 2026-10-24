@@ -1,0 +1,94 @@
+.services {
+  border-top: 1px solid var(--line);
+}
+
+.service {
+  position: relative;
+  isolation: isolate;
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 16px 40px;
+  padding-block: clamp(24px, 3vw, 40px);
+  border-bottom: 1px solid var(--line);
+}
+
+.service::before {
+  content: "";
+  position: absolute;
+  inset: 0 -16px;
+  z-index: -1;
+  background: linear-gradient(90deg, rgba(43, 80, 255, 0.16), transparent 75%);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.6s var(--ease-out);
+}
+
+.service:hover::before {
+  transform: scaleX(1);
+}
+
+.service h3 {
+  font-family: var(--font-display);
+  font-stretch: 115%;
+  font-weight: 700;
+  font-size: var(--step-2);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+}
+
+.service p {
+  max-width: 48ch;
+  color: var(--muted);
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.tags span {
+  padding: 4px 10px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--cobalt-light);
+}
+
+.service__arrow {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  transition:
+    transform 0.4s ease,
+    background-color 0.4s ease,
+    border-color 0.4s ease;
+}
+
+.service__arrow .icon {
+  width: 18px;
+  height: 18px;
+}
+
+.service:hover .service__arrow {
+  transform: rotate(-45deg);
+  border-color: var(--cobalt);
+  background: var(--cobalt);
+}
+
+@media (max-width: 960px) {
+  .service {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+
+  .service > div {
+    grid-column: 1 / -1;
+    grid-row: 2;
+  }
+}

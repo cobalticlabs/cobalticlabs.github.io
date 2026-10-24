@@ -1,0 +1,21 @@
+.sections {
+  display: grid;
+  gap: clamp(96px, 12vw, 168px);
+  padding-block: clamp(72px, 9vw, 128px);
+}
+
+.head {
+  display: grid;
+  gap: 14px;
+  margin-bottom: clamp(32px, 4vw, 56px);
+}
+
+.head h2 {
+  font-family: var(--font-display);
+  font-stretch: 118%;
+  font-weight: 800;
+  font-size: var(--step-3);
+  line-height: 1;
+  letter-spacing: -0.03em;
+  text-wrap: balance;
+}

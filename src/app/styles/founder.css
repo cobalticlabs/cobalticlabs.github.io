@@ -1,0 +1,43 @@
+.founder {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  align-items: center;
+  gap: clamp(24px, 5vw, 80px);
+  padding: clamp(28px, 4vw, 56px);
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  background: linear-gradient(140deg, var(--surface-2), var(--surface) 60%);
+}
+
+.founder blockquote {
+  font-family: var(--font-display);
+  font-stretch: 108%;
+  font-weight: 500;
+  font-size: var(--step-2);
+  line-height: 1.2;
+  letter-spacing: -0.015em;
+  text-wrap: balance;
+}
+
+.founder__who {
+  display: grid;
+  gap: 10px;
+  color: var(--muted);
+}
+
+.founder__who strong {
+  font-size: 18px;
+  color: var(--fg);
+}
+
+.founder__who a {
+  justify-self: start;
+  border-bottom: 1px solid currentColor;
+  color: var(--cobalt-light);
+}
+
+@media (max-width: 960px) {
+  .founder {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
