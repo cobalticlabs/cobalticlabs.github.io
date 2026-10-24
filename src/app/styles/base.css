@@ -201,9 +201,11 @@ section[id] {
     }
   }
 
-  .rise {
-    animation: rise 0.9s var(--ease-out) both;
-    animation-delay: calc(var(--d, 0) * 90ms + 150ms + var(--intro-delay));
+  @media (min-width: 760px) {
+    .rise {
+      animation: rise 0.9s var(--ease-out) both;
+      animation-delay: calc(var(--d, 0) * 90ms + 150ms + var(--intro-delay));
+    }
   }
 
   .motion-ok [data-split] .w > span {
