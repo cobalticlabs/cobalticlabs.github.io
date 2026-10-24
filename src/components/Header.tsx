@@ -7,7 +7,7 @@ export function Header() {
   return (
     <header className="top">
       <div className="wrap top__inner">
-        <Link className="brand" href="/#top" aria-label={`${site.name} home`}>
+        <Link className="brand" href="/#top">
           <ElementTile symbol={element.symbol} number={element.number} />
           <span className="brand__name">{site.name}</span>
         </Link>
